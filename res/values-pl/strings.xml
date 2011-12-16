@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Orbot</string>
+    
+    <string name="internal_web_url">http://orbot/</string>
+    <string name="default_web_url">http://check.torproject.org</string>
+    <string name="secure_default_web_url">https://check.torproject.org</string>
+    <string name="tor_check_api_url">https://check.torproject.org/?TorButton=true</string>
+    <string name="control_permission_label">włącz i wyłącz Tor</string>
+    <string name="tor_proxy_service_process">torproxyservice</string>
+   
+<string name="status_starting_up">Orbot startuje...</string>
+<string name="status_activated">Podłączony do sieci Tor</string>
+<string name="status_disabled">Orbot wyłączony</string>
+<string name="status_shutting_down">Orbot wyłącza się</string>
+
+<string name="not_anonymous_yet">UWAGA: Twoja komunikacja nie jest jeszcze anonimowa! Proszę skonfiguruj aplikacje aby używały serwera proxy HTTP 127.0.0.1:8118 lub SOCKS4A lub SOCKS5 127.0.0.1:9050</string>
+<string name="menu_home">Start</string>
+<string name="menu_browse">Przeglądaj</string>
+<string name="menu_settings">Ustawienia</string>
+<string name="menu_log">Logi</string>
+<string name="menu_info">Pomoc</string>
+<string name="menu_apps">Aplikacje</string>
+<string name="menu_start">Start</string>
+<string name="menu_stop">Stop</string>
+
+<string name="menu_about">O programie</string>
+<string name="menu_wizard">Wizard</string>
+
+
+<string name="button_help">Pomoc</string>
+<string name="button_close">Zamknij</string>
+<string name="button_about">O programie</string>
+
+<string name="button_clear_log">Czyść dziennik</string>
+
+
+<string name="menu_verify">Sprawdź</string>
+<string name="menu_exit">Wyjście</string>
+<string name="powered_by">napędzane oprogramowaniem Projektu Tor</string>
+<string name="press_to_start">- long press to start -</string>
+
+<string name="pref_trans_proxy_group">Przekierowanie przezroczyste (Wymaga uprawnień administratora)</string>
+<string name="pref_trans_proxy_title">Przekierowanie przezroczyste</string>
+<string name="pref_trans_proxy_summary">Automatyczne toryfikowanie aplikacji</string>
+
+<string name="pref_transparent_all_title">Przepuść wszystko przez Tora</string>
+<string name="pref_transparent_all_summary">Przekierowanie ruchu wszystkich aplikacji przez Tora</string>
+
+<string name="pref_transparent_port_fallback_title">Port Proxy Fallback</string>
+<string name="pref_transparent_port_fallback_summary">WARNING: Circumvents common ports (80, 443, etc). *USE ONLY* if \'All\' or \'App\' mode doesn\'t work.</string>
+
+<string name="pref_transparent_port_title">Port List</string>
+<string name="pref_transparent_port_summary">List of ports to proxy. *USE ONLY* if \'All\' or \'App\' mode doesn\'t work</string>
+<string name="pref_transparent_port_dialog">Enter ports to proxy</string>
+
+<string name="pref_has_root">Request Root Access</string>
+<string name="pref_has_root_summary">Request root access for transparent proxying</string>
+
+<string name="status_install_success">Binarki Tora pomyslnie zainstalowane!</string>
+<string name="status_install_fail">Nie można zainstalować plików binarnych Tora. Zajrzyj do dziennika i powiadom tor-assistants@torproject.org</string>
+
+<string name="title_error">Błąd Aplikacji</string>
+
+<string name="wizard_title">Witamy w Orbocie</string>
+
+<string name="wizard_btn_tell_me_more">O Orbocie</string>
+<string name="btn_next">Dalej</string>
+<string name="btn_back">wstecz</string>
+<string name="btn_finish">Koniec</string>
+
+<string name="btn_okay">OK</string>
+<string name="btn_cancel">Anuluj</string>
+
+
+<!-- Welcome Wizard strings (DJH) -->
+ 
+    <string name="wizard_welcome_msg">Orbot daje Tora Androidowi. Tor jest otwartym oprogramowaniem i otwartą siecią, która pomaga bronić się przed podsłuchem sieci znanym jako analiza ruchu, który zagraża wolności osobistej i prywatności, poufnym działaniom biznesowym i relacjami oraz bezpieczeństwu państwa.\n\n*UWAGA:* Sama instalacja Orbota _nie_ zanonimizuje magicznie Twojego ruchu! Ten kreator pozwoli Ci w pierwszych krokach.</string>
+    <string name="wizard_details">Niektóre szczegóły o Orbocie</string>
+    <string name="wizard_details_msg">Orbot jest otwartą aplikacją zawierającą Tora, LibEvent i Privoxy. Dostarcza lokalnego pośrednika HTTP (8118) i SOCKS (9050) do sieci Tora. Orbot ma możliwość, na urządzeniu uruchomionym z prawami administratora, wysyłać cały ruch internetowy przez Tora.</string>
+    <string name="wizard_permissions_root">Dostęp zezwolony</string>
+    <string name="wizard_permissions_stock">Prawa dostepu Orbota</string>
+    <string name="wizard_premissions_msg_root">Doskonale! Odkryliśmy, że masz uprawnienia administratora włączone dla Orbota. Będziemy mądrze korzystać z tej władzy.</string>
+    <string name="wizard_permissions_msg_stock"> Podczas gdy nie jest to wymagane, Orbot może stać się znacznie potężniejszym narzędziem, gdy masz prawa administratora na swoim urządzeniu. Użyj przycisku poniżej, by dać Orbotowi duży uprawnienia.</string>
+   
+    <string name="wizard_permissions_no_root">Jeśli nie masz uprawnień administratora lub nie masz pojęcia, o czym mówimy, używaj aplikacji skonfigurowanych do pracy z Orbotem.</string>
+    <string name="wizard_permissions_consent">Rozumiem i chcę kontynuować bez uprawnień administratora</string>
+   
+    <string name="wizard_permission_enable_root">Daj uprawnienia administratora Orbotowi</string>
+    <string name="wizard_configure">Skonfiguruj Toryfikację</string>
+    <string name="wizard_configure_msg">Orbot daje Ci możliwość przekierowania całego ruchu aplikacji przez Tora ALBO wybrania aplikacji pojedynczo.</string> 
+    <string name="wizard_configure_all">Przekierowuj wszystkie aplikacje przez Tora</string>
+    <string name="wizard_configure_select_apps">Wybierz poszczególne aplikacje dla Tora</string>
+    
+    
+    <string name="wizard_tips_tricks">Aplikacje skonfigurowane dla Orbota</string>
+    <string name="wizard_tips_msg">Zachęcamy do pobierania i używania aplikacji, które wiedzą, jak łączyć się bezpośrednio z Orbotem. Kliknij na poniższe przyciski, by zainstalować.</string>
+    <string name="wizard_tips_otrchat">Gibberbot - Secure instant messaging client for Android</string>
+    <string name="wizard_tips_orweb">ORWEB (tylko Android 1.x) - Przeglądarka zaprojektowana do prywatności i dla Orbota</string>
+    <string name="wizard_tips_proxy">Ustawienia Proxy - NDowiedz się, jak konfiguroać aplikacje do współpracy z Orbotem</string>
+    
+    <string name="wizard_proxy_help_info">Ustawienia Proxy</string>
+    <string name="wizard_proxy_help_msg">Jeśli aplikacja na Androida, której używasz ma obsługę proxy HTTP lub SOCKS, możesz skonfigurować ją do łączenia się z Orbotem i używania Tora.\n\n
+    Ustawienie hosta to 127.0.0.1 lub "localhost". Dla HTTP, numer portu to 8118. Dla SOCKS pośrednik to 9050. Powinno się używać SOCKS4A lub SOCKS5, jeśli to możliwe.
+    \n\n
+    Możesz dowiedzieć się więcej o przekierowaniu ruchu na Androidzie z FAQ pod adresem: http://tinyurl.com/proxyandroid
+    </string>
+    
+    <string name="wizard_final">Orbot jest gotowy!</string>
+    <string name="wizard_final_msg">Setki tysięcy ludzi na całym świecie używają Tora z różnych powodów: dziennikarze i blogerzy, działacze na rzecz praw człowieka, stróże prawa, żołnierze, korporacje, obywatele represyjnych reżimów i zwykli obywatele... teraz Ty też możesz!</string>
+    
+    <string name="otrchat_apk_url">market://search?q=pname:info.guardianproject.otr.app.im</string>
+    <string name="orweb_apk_url">market://search?q=pname:nfo.guardianproject.browser</string>
+    
+<!-- END Welcome Wizard strings (DJH) -->
+ 
+
+	<string name="connect_first_time">Pomyślnie połaczono z siecią Tora - ale to NIE oznacza, że Twoje urządzenie jest bezpieczne. Możesz użyć opcji \'Sprawdź\' w menu, aby przetestować swoją przeglądarkę. \n\nOdwiedź nas na https://guardianproject.info/apps/orbot lub wyślij email na help@guardianproject.info, by dowiedzieć się więcej.</string>
+
+	<string name="tor_check">To otworzy Twoją domyślną przeglądarkę na adresie https://check.torproject.org w celu sprawdzenia, czy Orbot jest skonfigurowany i jest poąłczenie z Torem.</string>
+
+	
+    <string name="pref_hs_group">Usługi ukryte</string>
+    
+    <string name="pref_general_group">General</string>
+    <string name="pref_start_boot_title">Start Orbot on Boot</string>
+    <string name="pref_start_boot_summary">Automatically start Orbot and connect Tor when your Android device boots</string>
+    
+</resources>

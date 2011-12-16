@@ -1,0 +1,128 @@
+NOTE: Specific #s below correspond to Trac tickets logged and maintained at https://trac.torproject.org/projects/tor/
+
+1.0.6
+- updated tablet layout graphic sizing
+- stopped Orweb from being transparent proxied (not needed)
+- updated to Tor 0.2.3.7-alpha binary 
+- geoip database now included for exit/entrace node control
+- stopped iptables rule purging if transproxy is not enabled (conflicted with DroidWall and others)
+
+1.0.5.3
+- added auto-tor of wireless and usb tethering
+- integrated new setup wizard
+- moved large tor binary into split multiple 1M segments to fix for devices with 1M resource limit
+
+1.0.5.1/.2
+- small updates to layout of main screen to fit smaller screens
+- fixed preference setting of EntryNode torrc value
+
+1.0.5
+- added exit node and "StrictExitNode" preference
+- fixed tor binary installation issue related to max resource size and compression
+- updated "start on boot" code to test for proper launch event
+- updated to Tor 0.2.2.25-alpha binary
+- moved back to single notification bar id to avoid double entries
+- cleaned up progress dialog and alert handling to avoid leaky windows
+- Merged __sporkbomb's patch for how transproxy all works; now does "everything but Tor"
+- Added new toolbar notifications and alerts for displaying notifications and Tor messages
+- Removed unused Socks client code from android.net package
+- Updated wizard to show link to Gibberbot (formerly OTRchat) chat app
+- Bundled iptables 1.4.7 for ARM instead of relying on installed version
+- Fixed various issues related to iptables, transproxying for CyanogenMod7/Android 2.3.*
+- Changed how settings changed are processed through the control port (batched instead of one by one)
+- Stopped app by app flushing of iptables rules, in favor of complete flush of 'nat' and 'filter' type
+- removed useless log screen (logs can be viewed/retrieved using 'alogcat' 3rd party app)
+
+1.0.4
+- Added Russian, Persian, Arabic and other .po translations (see res/values-* folders)
+- Fixed incorrect try to clear iptables rules for non-root devices
+- Fixed bug that stopped wizard helper from showing first time
+- Added new green notification icon when Tor is connected
+- Fixed app selector layout in settings
+- Moved minSDK to 4 (Android 1.6); discontinued 1.5 support
+- Fixed log screen touch disable tor bug
+- Debugged issues around network status change causing FC/crash
+- Added "Start on Boot" option
+
+1.0.3
+- Fixed spanish language issues with settings screen
+- Cleaned up logging, and moved most of it to debug output only
+- Small changes to iptables, transproxy settings to handle iptables 1.3 and 1.4 variations
+- Added compile time variable/flag for turning on/off detailed control port output to Android stdout
+- Hidden services now support through option in settings
+- removed double apostrophes from value/strings.xml files
+
+1.0.2
+- Added "check" yes/no dialog prompt
+- Debugged iptables/transprox settings on Android 1.6 and 2.2
+- Added proxy settings help screen and fixed processSettings() NPE
+
+1.0.1
+- Found and fixed major bug in per-app trans proxying; list of apps was being cached and iptables rules were not properly updated as the user changed the selection in the list
+ 
+1.0.0 - 2010-08-10
+- Added "Proxy Settings" help screen
+- Handle potential null pointers on process settings where service not yet active 
+
+0.0.9x - 2010-08-03
+- Revised Orbot install wizard
+- Integrated Tor 0.2.2.14 and iptables 4.x binary
+- Fixed "got root" detection method 
+- Fixed Per App Torification handling so it updates on exit from Settings screen
+
+0.0.8x - 2010-07-15
+- Updated Settings & App configuration screens
+- Changed progress dialog display
+- Significant application re-arch
+- Fixed force stop crash on install
+- Integrated Tor 0.2.2.13-alpha-dev binary
+- Fixed su shell cmd error handling & root perms issue
+- #1570: Added new setup wizard on install to clarify root / non-root capabilities 
+- #1716: Per-app traffic routing prefs not persisted
+- #1509: Help window is too big for the screen on android 1.6
+- #1513: Orbot can't be told to exit <-- added 'Exit' menu option
+- #1530: Capture sh cmd stout for debugging errors <-- updated debug log screen
+- #1531: Don't loop ad infinitum in Orbot fails <-- only retries 3 times now
+- #1272: Orbot should store Tor files in the cache
+- #1273: Info should mention anonymity problems with ProxySurf
+
+0.0.5x
+- #1388: Error parsing PID from output of "ps"
+- #1277, #1278: Enabling bridges issues
+- #1279: Misleading message when initialization is finished
+- #1292: Tor version in About screen is wrong
+
+0.0.3x - 2010-03-15
+- Added Start/Stop menu item for non-touch activation
+- Improved parsing and validation of settings screen
+- UI now compatible with landscape mode (#1276)
+- Added relay support for static/publicly accessible IP devices
+
+0.0.3a - 2010-02-07
+- Integrated iptables support for transparent proxying of outbound port
+  80 and DNS
+- Privoxy is now used as HTTP Proxy server (cross-compiled to ARM)
+- New UI layout and graphics
+- Android settings screen for generated torrc file
+- Improved performance and error handling
+
+0.0.2a - 2009-11-30
+- Update user interface layout and graphics
+- Modified service launch, shutdown and handling
+- Improved event handler on Tor Control port callbacks
+- Added Help page
+
+0.0.2 - 2009-11-27
+- Major improvement to the user interface including relative layout for
+  different screens
+- New graphics resources
+- Implemented Tor Control Port using official Java library
+- Added 'clear' button to the log screen
+- Added 'save' and editable textbox for the settings screen
+- Moved screen navigation to a pop-up menu
+
+0.0.1-alpha - 2009-10-21
+- First code release
+- Major Features: Tor binary application is fully operational, UI:
+  Start/Stop Tor, View Message Log, View Settings (torrc)
+
