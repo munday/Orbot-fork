@@ -9,7 +9,7 @@
      android:label="@string/app_name" android:debuggable="false">
       
         <activity android:name=".Orbot"
-                  android:theme="@android:style/Theme.NoTitleBar">
+                  android:theme="@android:style/Theme.NoTitleBar" android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -30,13 +30,13 @@
             </intent-filter>
         </activity>
       	
-      	<activity android:name=".wizard.LotsaText"/>
-      	<activity android:name=".wizard.Permissions"/>
-      	<activity android:name=".wizard.TipsAndTricks"/>
-      	<activity android:name=".wizard.ConfigureTransProxy"/>
+      	<activity android:name=".wizard.LotsaText" android:launchMode="singleTask"/>
+      	<activity android:name=".wizard.Permissions" android:launchMode="singleTask"/>
+      	<activity android:name=".wizard.TipsAndTricks" android:launchMode="singleTask"/>
+      	<activity android:name=".wizard.ConfigureTransProxy" android:launchMode="singleTask"/>
       	
-      	<activity android:name=".settings.SettingsPreferences"  android:label="@string/app_name"/>
-        <activity android:name=".settings.AppManager"  android:label="@string/app_name"/>
+      	<activity android:name=".settings.SettingsPreferences"  android:label="@string/app_name" android:launchMode="singleTask"/>
+        <activity android:name=".settings.AppManager"  android:label="@string/app_name" android:launchMode="singleTask"/>
       
     	<service android:enabled="true"
     		android:name=".service.TorService" 

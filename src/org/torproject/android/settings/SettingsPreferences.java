@@ -11,6 +11,7 @@ import org.torproject.android.service.TorTransProxy;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
@@ -39,6 +40,8 @@ public class SettingsPreferences
 		addPreferencesFromResource(R.xml.preferences);
 		
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		
+		getListView().setCacheColorHint(Color.TRANSPARENT);
 		
 		hasRoot = prefs.getBoolean("has_root",false);
 		
