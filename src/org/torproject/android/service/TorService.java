@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,9 +24,7 @@ import org.torproject.android.R;
 import org.torproject.android.TorConstants;
 import org.torproject.android.Utils;
 import org.torproject.android.settings.AppManager;
-import org.torproject.android.settings.ProcessSettingsAsyncTask;
 
-import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -33,16 +33,22 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.os.IBinder;
-import android.os.Looper;
-import android.os.RemoteCallbackList;
+import android.os.IBinder;import android.os.RemoteCallbackList;
 import android.os.RemoteException;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
 public class TorService extends Service implements TorServiceConstants, TorConstants, Runnable, EventHandler
 {
-	
+	private Method mStartForeground;
+    private Method mStopForeground;
+    private Object[] mStartForegroundArgs = new Object[2];
+    private Object[] mStopForegroundArgs = new Object[1];
+    @SuppressWarnings("rawtypes")
+	private static final Class[] mStartForegroundSignature = new Class[] {int.class, Notification.class};
+    @SuppressWarnings("rawtypes")
+	private static final Class[] mStopForegroundSignature = new Class[] {boolean.class};
+    
 	public static boolean ENABLE_DEBUG_LOG = true;
 	
 	private static int currentStatus = STATUS_OFF;
@@ -53,6 +59,7 @@ public class TorService extends Service implements TorServiceConstants, TorConst
 	private static TorService _torInstance;
 	
 	private static final int NOTIFY_ID = 1;
+	private static final int PERSISTENT_NOTIFY_ID = 2;
 	
 	private static final int MAX_START_TRIES = 3;
 
@@ -70,7 +77,16 @@ public class TorService extends Service implements TorServiceConstants, TorConst
     /** Called when the activity is first created. */
     public void onCreate() {
     	super.onCreate();
-       
+    	/* foreground service notification code */
+		try {
+            mStartForeground = getClass().getMethod("startForeground", mStartForegroundSignature);
+            mStopForeground = getClass().getMethod("stopForeground", mStopForegroundSignature);
+        } catch (NoSuchMethodException e) {
+            // Running on an older platform.
+            mStartForeground = mStopForeground = null;
+        }
+		/* end foreground service notification code */
+		
     	logMessage("serviced created");
       
     }
@@ -159,10 +175,6 @@ public class TorService extends Service implements TorServiceConstants, TorConst
    
 	private void showToolbarNotification (String notifyMsg, int notifyId, int icon)
 	{
-	
-		
-		NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
 		
 		CharSequence tickerText = notifyMsg;
 		long when = System.currentTimeMillis();
@@ -178,11 +190,67 @@ public class TorService extends Service implements TorServiceConstants, TorConst
 
 		notification.setLatestEventInfo(context, contentTitle, contentText, contentIntent);
 
-
-		mNotificationManager.notify(notifyId, notification);
-
+		startForegroundCompat(notifyId, notification);
 
 	}
+	
+	/**
+     * This is a wrapper around the new startForeground method, using the older
+     * APIs if it is not available.
+     */
+    void startForegroundCompat(int id, Notification notification) {
+
+    	NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+    	// If we have the new startForeground API, then use it.
+        if (mStartForeground != null) {
+            mStartForegroundArgs[0] = Integer.valueOf(id);
+            mStartForegroundArgs[1] = notification;
+            try {
+                mStartForeground.invoke(this, mStartForegroundArgs);
+            } catch (InvocationTargetException e) {
+                // Should not happen.
+                Log.w(TAG, "Unable to invoke startForeground", e);
+            } catch (IllegalAccessException e) {
+                // Should not happen.
+                Log.w(TAG, "Unable to invoke startForeground", e);
+            }
+            return;
+        }
+        // Fall back on the old API.
+        setForeground(true);
+        mNotificationManager.notify(id, notification);
+    }
+    
+    /**
+     * This is a wrapper around the new stopForeground method, using the older
+     * APIs if it is not available.
+     */
+    void stopForegroundCompat(int id) {
+
+    	NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+    	// If we have the new stopForeground API, then use it.
+        if (mStopForeground != null) {
+            mStopForegroundArgs[0] = Boolean.TRUE;
+            try {
+                mStopForeground.invoke(this, mStopForegroundArgs);
+            } catch (InvocationTargetException e) {
+                // Should not happen.
+                Log.w(TAG, "Unable to invoke stopForeground", e);
+            } catch (IllegalAccessException e) {
+                // Should not happen.
+                Log.w(TAG, "Unable to invoke stopForeground", e);
+            }
+            return;
+        }
+        
+        // Fall back on the old API.  Note to cancel BEFORE changing the
+        // foreground state, since we could be killed at that point.
+        mNotificationManager.cancel(id);
+        setForeground(false);
+    }
+	
     
     /* (non-Javadoc)
 	 * @see android.app.Service#onRebind(android.content.Intent)
@@ -227,6 +295,9 @@ public class TorService extends Service implements TorServiceConstants, TorConst
 				setTorProfile(PROFILE_ON);
 			}
 		}
+		
+		
+		
 	}
 	 
 	public void run ()
@@ -256,7 +327,6 @@ public class TorService extends Service implements TorServiceConstants, TorConst
     	super.onDestroy();
     	
     	Log.d(TAG,"onDestroy called");
-    	
     	  // Unregister all callbacks.
         mCallbacks.kill();
       
@@ -276,6 +346,9 @@ public class TorService extends Service implements TorServiceConstants, TorConst
     		sendCallbackStatusMessage(getString(R.string.status_disabled));
 
     		clearTransparentProxy();
+
+    		stopForegroundCompat(PERSISTENT_NOTIFY_ID);
+
     	}
     	catch (Exception e)
     	{
@@ -330,8 +403,6 @@ public class TorService extends Service implements TorServiceConstants, TorConst
 					Editor pEdit = prefs.edit();
 					pEdit.putString("pref_hs_hostname",onionHostname);
 					pEdit.commit();
-				
-					
 				} catch (FileNotFoundException e) {
 					logException("unable to read onion hostname file",e);
 					showToolbarNotification(getString(R.string.unable_to_read_hidden_service_name), NOTIFY_ID, R.drawable.tornotificationerr);
@@ -499,6 +570,7 @@ public class TorService extends Service implements TorServiceConstants, TorConst
 	    		runTorShellCmd();
 	    		runPrivoxyShellCmd();
 
+	    		
 			} catch (Exception e) {
 		    	logException("Unable to start Tor: " + e.getMessage(),e);	
 		    	sendCallbackStatusMessage(getString(R.string.unable_to_start_tor) + ' ' + e.getMessage());
@@ -917,9 +989,7 @@ public class TorService extends Service implements TorServiceConstants, TorConst
           {
         	  currentStatus = STATUS_ON;
         	  showToolbarNotification (getString(R.string.status_activated),NOTIFY_ID,R.drawable.tornotificationon);
-        	
-
-   		   	getHiddenServiceHostname ();
+        	  getHiddenServiceHostname ();
    		   
           }
         

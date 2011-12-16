@@ -2,16 +2,11 @@ package org.torproject.android.wizard;
 
 import org.torproject.android.R;
 import org.torproject.android.TorConstants;
-import org.torproject.android.R.drawable;
-import org.torproject.android.R.id;
-import org.torproject.android.R.layout;
-import org.torproject.android.R.string;
 import org.torproject.android.service.TorService;
 import org.torproject.android.service.TorServiceUtils;
 import org.torproject.android.service.TorTransProxy;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
